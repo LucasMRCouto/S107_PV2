@@ -1,0 +1,21 @@
+# Ignorar arquivos e pastas do PyCharm
+.idea/
+
+# Ignorar arquivos do Python
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignorar o ambiente virtual
+.venv/
+venv/
+
+# Ignorar arquivos de dependências que são gerados durante o build (se você usar pip)
+*.egg-info/
+dist/
+build/
+
+# Ignorar arquivos temporários
+*.swp
+*.swo
+*.bak

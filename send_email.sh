@@ -1,0 +1,1 @@
+echo "Pipeline executado!" | mail -s "CI/CD Pipeline" $EMAIL_RECIPIENT
