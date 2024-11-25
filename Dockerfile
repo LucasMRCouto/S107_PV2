@@ -1,17 +1,21 @@
-# Use uma imagem base do Python
-FROM python:3.10-slim
+# Usando a imagem base do Jenkins
+FROM jenkins/jenkins:lts
 
-# Define o diretório de trabalho no container
-WORKDIR /app
+# Definir o usuário root para instalar pacotes
+USER root
 
-# Copia as dependências para dentro do container
-COPY requirements.txt .
+# Atualizar pacotes e instalar Python 3, pip, venv e outras dependências básicas
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    python3-venv \
+    git \
+    curl \
+    mailutils \
+    && rm -rf /var/lib/apt/lists/*
 
-# Instala as dependências
-RUN pip install --no-cache-dir -r requirements.txt
+# Retornar para o usuário padrão do Jenkins
+USER jenkins
 
-# Copia o código da aplicação para o container
-COPY . .
-
-# Define o comando padrão para rodar os testes
-CMD ["python", "-m", "unittest", "discover", "-s", "app/tests"]
+# Expor a porta do Jenkins
+EXPOSE 8080
