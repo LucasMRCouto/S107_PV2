@@ -4,6 +4,8 @@ pipeline {
 
     environment {
         EMAIL_RECIPIENT = "${env.EMAIL}"  // Defina a variável de ambiente para o e-mail
+        MAILGUN_API_KEY = "9f1551a672dd388c7f89c3304a6e3e2a-c02fd0ba-0513bfdc"  // Chave da API do Mailgun (substitua pela sua chave)
+        MAILGUN_DOMAIN = "sandboxb1d4be8e79454fdcb42de699e1f4374a.mailgun.org"  // Seu domínio Mailgun (exemplo: sandboxXXXX.mailgun.org)
     }
 
     stages {
@@ -54,7 +56,7 @@ pipeline {
                 echo 'Sending Notification...'
                 script {
                     // Enviar e-mail com o status da execução
-                    sh './send_email.sh'
+                    sh 'python3 send_email.py'
                 }
             }
         }
