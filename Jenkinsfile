@@ -7,6 +7,8 @@ pipeline {
         MAILGUN_API_KEY = "9f1551a672dd388c7f89c3304a6e3e2a-c02fd0ba-0513bfdc"  // Chave da API do Mailgun (substitua pela sua chave)
         MAILGUN_DOMAIN = "sandboxb1d4be8e79454fdcb42de699e1f4374a.mailgun.org"  // Seu domínio Mailgun (exemplo: sandboxXXXX.mailgun.org)
 
+        NODE_PATH = "$HOME/node/bin"
+        PATH = "${NODE_PATH}:${env.PATH}"
         EMAIL_USERNAME = "s107pv2@gmail.com"  // E-mail remetente
         EMAIL_PASSWORD = "projetos107"
     }
@@ -70,6 +72,7 @@ pipeline {
                 script {
                     // Enviar e-mail com o status da execução
                     sh '''
+                        export PATH=$HOME/node/bin:$PATH
                         npm install nodemailer dotenv
                         export EMAIL_TO_NOTIFY=$(git log -1 --pretty=format:'%ae')
                         node send_email.js
