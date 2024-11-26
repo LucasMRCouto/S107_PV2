@@ -18,8 +18,10 @@ pipeline {
                 script {
                     // Instalar Node.js
                     sh '''
-                        curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-                        apt-get install -y nodejs
+                        curl -fsSL https://nodejs.org/dist/v18.17.1/node-v18.17.1-linux-x64.tar.xz -o node.tar.xz
+                        mkdir -p $HOME/node
+                        tar -xJf node.tar.xz -C $HOME/node --strip-components=1
+                        export PATH=$HOME/node/bin:$PATH
                         node --version
                         npm --version
                     '''
