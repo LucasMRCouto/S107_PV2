@@ -6,6 +6,9 @@ pipeline {
         EMAIL_RECIPIENT = "${env.EMAIL}"  // Defina a variável de ambiente para o e-mail
         MAILGUN_API_KEY = "9f1551a672dd388c7f89c3304a6e3e2a-c02fd0ba-0513bfdc"  // Chave da API do Mailgun (substitua pela sua chave)
         MAILGUN_DOMAIN = "sandboxb1d4be8e79454fdcb42de699e1f4374a.mailgun.org"  // Seu domínio Mailgun (exemplo: sandboxXXXX.mailgun.org)
+
+        EMAIL_USERNAME = "s107pv2@gmail.com"  // E-mail remetente
+        EMAIL_PASSWORD = "projetos107"
     }
 
     stages {
@@ -13,6 +16,14 @@ pipeline {
             steps {
                 echo 'Installing Dependencies...'
                 script {
+                    // Instalar Node.js
+                    sh '''
+                        curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+                        apt-get install -y nodejs
+                        node --version
+                        npm --version
+                    '''
+
                     // Instalar as dependências do Python usando o pip dentro do ambiente virtual
                     sh '''
                         python3 -m venv venv
@@ -56,7 +67,11 @@ pipeline {
                 echo 'Sending Notification...'
                 script {
                     // Enviar e-mail com o status da execução
-                    sh 'python3 send_email.py'
+                    sh '''
+                        npm install nodemailer dotenv
+                        export EMAIL_TO_NOTIFY=$(git log -1 --pretty=format:'%ae')
+                        node send_email.js
+                    '''
                 }
             }
         }
