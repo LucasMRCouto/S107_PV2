@@ -10,7 +10,7 @@ pipeline {
         NODE_PATH = "$HOME/node/bin"
         PATH = "${NODE_PATH}:${env.PATH}"
         EMAIL_USERNAME = "s107pv2@gmail.com"  // E-mail remetente
-        EMAIL_PASSWORD = "bzmtijfxxbeqqufk"  // Senha de app do google
+        EMAIL_PASSWORD = "doapkqqmcvctizng"  // Senha de app do google
     }
 
     stages {
